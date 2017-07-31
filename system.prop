@@ -11,3 +11,4 @@ media.stagefright.less-secure=true
 
 # Display
 ro.sf.lcd_density=240
+debug.hwui.use_buffer_age=false
