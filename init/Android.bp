@@ -1,0 +1,8 @@
+cc_library_static {
+    include_dirs: ["system/core/init"],
+    cppflags: ["-Wall"],
+    srcs: ["init_surnia.cpp"],
+    name: "libinit_surnia",
+    static_libs: ["libbase"],
+
+}
