@@ -41,8 +41,7 @@ using android::init::property_set;
 void gsm_properties(bool msim);
 void cdma_properties();
 
-void property_override(char const prop[], char const value[])
-{
+void property_override(char const prop[], char const vendor_prop[], char const value[]) {
     prop_info *pi;
 
     pi = (prop_info*) __system_property_find(prop);
@@ -50,10 +49,13 @@ void property_override(char const prop[], char const value[])
         __system_property_update(pi, value, strlen(value));
     else
         __system_property_add(prop, strlen(prop), value, strlen(value));
+
+    if (vendor_prop[0] != '0') {
+        property_override(vendor_prop, "0", value);
+    }
 }
 
-void vendor_load_properties()
-{
+void vendor_load_properties() {
     std::string carrier;
     std::string device;
     std::string fsg;
@@ -66,11 +68,11 @@ void vendor_load_properties()
     if (radio == "0x2") {
         /* XT1529 */
         cdma_properties();
-        property_override("ro.product.model", "XT1529");
-        property_override("ro.product.device", "surnia_cdma");
-        property_override("ro.build.product", "surnia_cdma");
-        property_override("ro.build.description", "surnia_verizon-user 5.1 LPI23.29-17.5 5 release-keys");
-        property_override("ro.build.fingerprint", "motorola/surnia_verizon/surnia_cdma:5.1/LPI23.29-17.5/5:user/release-keys");
+        property_override("ro.product.model", "ro.product.vendor.model", "XT1529");
+        property_override("ro.product.device", "ro.product.vendor.device", "surnia_cdma");
+        property_override("ro.build.product", "0", "surnia_cdma");
+        property_override("ro.build.description", "0", "surnia_verizon-user 5.1 LPI23.29-17.5 5 release-keys");
+        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_verizon/surnia_cdma:5.1/LPI23.29-17.5/5:user/release-keys");
         property_set("ro.mot.build.customerid", "verizon");
         property_set("ro.telephony.get_imsi_from_sim", "true");
         property_set("ro.com.google.clientidbase.am", "android-verizon");
@@ -80,100 +82,99 @@ void vendor_load_properties()
     } else if (radio == "0x1") {
         /* XT1527 */
         gsm_properties(false);
-        property_override("ro.product.model", "XT1527");
-        property_override("ro.product.device", "surnia_umts");
-        property_override("ro.build.product", "surnia_umts");
-        property_override("ro.build.description", "surnia_retus-user 5.0.2 LXI22.50-24.1 1 release-keys");
-        property_override("ro.build.fingerprint", "motorola/surnia_retus/surnia_umts:5.0.2/LXI22.50-24.1/1:user/release-keys");
+        property_override("ro.product.model", "ro.product.vendor.model", "XT1527");
+        property_override("ro.product.device", "ro.product.vendor.device", "surnia_umts");
+        property_override("ro.build.product", "0", "surnia_umts");
+        property_override("ro.build.description", "0", "surnia_retus-user 5.0.2 LXI22.50-24.1 1 release-keys");
+        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retus/surnia_umts:5.0.2/LXI22.50-24.1/1:user/release-keys");        
         property_set("ro.mot.build.customerid", "retus");
     } else if (radio == "0x3") {
         /* XT1526 */
         cdma_properties();
         if (carrier == "sprint") {
             if (fsg == "boost") {
-                property_override("ro.build.description", "surnia_boost-user 5.0.2 LXI22.50-14.8 30 release-keys");
-                property_override("ro.build.fingerprint", "motorola/surnia_boost/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
-	        property_set("ro.cdma.home.operator.numeric", "311870");
-	        property_set("ro.cdma.home.operator.alpha", "Boost Mobile");
+                property_override("ro.build.description", "0", "surnia_boost-user 5.0.2 LXI22.50-14.8 30 release-keys");
+                property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_boost/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
+                property_set("ro.cdma.home.operator.numeric", "311870");
+                property_set("ro.cdma.home.operator.alpha", "Boost Mobile");
             } else {
-                property_override("ro.build.description", "surnia_sprint-user 5.0.2 LXI22.50-14.8 30 release-keys");
-                property_override("ro.build.fingerprint", "motorola/surnia_sprint/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
+                property_override("ro.build.description", "0", "surnia_sprint-user 5.0.2 LXI22.50-14.8 30 release-keys");
+                property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_sprint/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
             }
             property_set("ro.fsg-id", "sprint");
             property_set("ro.carrier", "sprint");
-            property_set("ro.mot.build.customerid ","sprint");
+            property_set("ro.mot.build.customerid ", "sprint");
         } else {
-            property_override("ro.build.description", "surnia_usc-user 5.0.2 LXI22.50-14.8 30 release-keys");
-            property_override("ro.build.fingerprint", "motorola/surnia_usc/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
+            property_override("ro.build.description", "0", "surnia_usc-user 5.0.2 LXI22.50-14.8 30 release-keys");
+            property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_usc/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
             property_set("ro.mot.build.customerid", "usc");
             property_set("ro.cdma.home.operator.alpha", "U.S. Cellular");
             property_set("ro.cdma.home.operator.numeric", "311580");
             property_set("ro.fsg-id", "usc");
         }
-        property_override("ro.product.model", "XT1526");
-        property_override("ro.product.device", "surnia_cdma");
-        property_override("ro.build.product", "surnia_cdma");
-        property_set("persist.radio.0x9e_not_callname","1");
+        property_override("ro.product.model", "ro.product.vendor.model", "XT1526");
+        property_override("ro.product.device", "ro.product.vendor.device", "surnia_cdma");
+        property_override("ro.build.product", "0", "surnia_cdma");
+        property_set("persist.radio.0x9e_not_callname", "1");
         property_set("persist.radio.lifecalls", "0");
         property_set("persist.radio.lifetimer", "0");
         property_set("persist.radio.multisim.config", "");
         property_set("ro.cdma.international.eri", "2,74,124,125,126,157,158,159,193,194,195,196,197,198,228,229,230,231,232,233,234,235");
-        property_set("ro.com.android.dataroaming","false");
+        property_set("ro.com.android.dataroaming", "false");
     } else if (radio == "0x4") {
         /* XT1524 */
         gsm_properties(false);
-        property_override("ro.product.model", "XT1524");
-        property_override("ro.product.device", "surnia_umts");
-        property_override("ro.build.product", "surnia_umts");
-        property_override("ro.build.description", "surnia_reteu-user 5.0.2 LXI22.50-24.1 2 release-keys");
-        property_override("ro.build.fingerprint", "motorola/surnia_reteu/surnia_umts:5.0.2/LXI22.50-24.1/2:user/release-keys");
+        property_override("ro.product.model", "ro.product.vendor.model", "XT1524");
+        property_override("ro.product.device", "ro.product.vendor.device", "surnia_umts");
+        property_override("ro.build.product", "0", "surnia_umts");
+        property_override("ro.build.description", "0", "surnia_reteu-user 5.0.2 LXI22.50-24.1 2 release-keys");
+        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_reteu/surnia_umts:5.0.2/LXI22.50-24.1/2:user/release-keys");
         property_set("ro.mot.build.customerid", "reteuall");
     } else if (radio == "0x6") {
         /* XT1523 */
         gsm_properties(true);
-        property_override("ro.product.model", "XT1523");
-        property_override("ro.product.device", "surnia_udstv");
-        property_override("ro.build.product", "surnia_udstv");
-        property_override("ro.build.description", "surnia_retbr_dstv-user 5.0.2 LXI22.50-24.1 3 release-keys");
-        property_override("ro.build.fingerprint", "motorola/surnia_retbr_dstv/surnia_udstv:5.0.2/LXI22.50-24.1/3:user/release-keys");
+        property_override("ro.product.model", "ro.product.vendor.model", "XT1523");
+        property_override("ro.product.device", "ro.product.vendor.device", "surnia_udstv");
+        property_override("ro.build.product", "0", "surnia_udstv");
+        property_override("ro.build.description", "0", "surnia_retbr_dstv-user 5.0.2 LXI22.50-24.1 3 release-keys");
+        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retbr_dstv/surnia_udstv:5.0.2/LXI22.50-24.1/3:user/release-keys");
         property_set("ro.mot.build.customerid", "retbr");
     } else if (radio == "0x7") {
         /* XT1521 */
         gsm_properties(true);
-        property_override("ro.product.model", "XT1521");
-        property_override("ro.product.device", "surnia_uds");
-        property_override("ro.build.product", "surnia_uds");
-        property_override("ro.build.description", "surnia_retasia_ds-user 5.0.2 LXI22.50-53.1 1 release-keys");
-        property_override("ro.build.fingerprint", "motorola/surnia_retasia_ds/surnia_uds:5.0.2/LXI22.50-53.1/1:user/release-keys");
+        property_override("ro.product.model", "ro.product.vendor.model", "XT1521");
+        property_override("ro.product.device", "ro.product.vendor.device", "surnia_uds");
+        property_override("ro.build.product", "0", "surnia_uds");
+        property_override("ro.build.description", "0", "surnia_retasia_ds-user 5.0.2 LXI22.50-53.1 1 release-keys");
+        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retasia_ds/surnia_uds:5.0.2/LXI22.50-53.1/1:user/release-keys");
         property_set("ro.mot.build.customerid", "retasiaall");
     } else if (radio == "0x8") {
         /* XT1514 */
         gsm_properties(true);
-        property_override("ro.product.model", "XT1514");
-        property_override("ro.product.device", "surnia_uds");
-        property_override("ro.build.product", "surnia_uds");
-        property_override("ro.build.description", "surnia_retbr_ds-user 5.0.2 LXI22.50-24.1 1 release-keys");
-        property_override("ro.build.fingerprint", "motorola/surnia_retbr_ds/surnia_uds:5.0.2/LXI22.50-24.1/1:user/release-keys");
+        property_override("ro.product.model", "ro.product.vendor.model", "XT1514");
+        property_override("ro.product.device", "ro.product.vendor.device", "surnia_uds");
+        property_override("ro.build.product", "0", "surnia_uds");
+        property_override("ro.build.description", "0", "surnia_retbr_ds-user 5.0.2 LXI22.50-24.1 1 release-keys");
+        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retbr_ds/surnia_uds:5.0.2/LXI22.50-24.1/1:user/release-keys");
         property_set("ro.mot.build.customerid", "retbr");
     }
+
     device = GetProperty("ro.product.device", "");
-    printf("Found radio id: %s setting build properties for %s device\n", radio.c_str(), device.c_str());
+  //  sprintf("Found radio id: %s setting build properties for %s device\n", radio.c_str(), device.c_str());
 }
 
-void cdma_properties()
-{
-    property_set("DEVICE_PROVISIONED","1");
+void cdma_properties() {
+    property_set("DEVICE_PROVISIONED", "1");
     property_set("gsm.sim.operator.iso-country", "US");
     property_set("gsm.operator.iso-country", "US");
-    property_set("ril.subscription.types","NV,RUIM");
+    property_set("ril.subscription.types", "NV,RUIM");
     property_set("ro.telephony.default_cdma_sub", "0");
-    property_set("ro.product.locale.region", "US");
+//    property_set("ro.product.locale.region", "US");
     property_set("ro.telephony.default_network", "8");
     property_set("telephony.lteOnCdmaDevice", "1");
 }
 
-void gsm_properties(bool msim)
-{
+void gsm_properties(bool msim) {
     property_set("telephony.lteOnGsmDevice", "1");
     property_set("ro.telephony.default_network", "9");
     if (msim) {
