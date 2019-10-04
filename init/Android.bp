@@ -4,5 +4,5 @@ cc_library_static {
     srcs: ["init_surnia.cpp"],
     name: "libinit_surnia",
     static_libs: ["libbase"],
-
+    recovery_available: true,
 }
