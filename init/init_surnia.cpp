@@ -72,7 +72,7 @@ void vendor_load_properties() {
         property_override("ro.product.device", "ro.product.vendor.device", "surnia_cdma");
         property_override("ro.build.product", "0", "surnia_cdma");
         property_override("ro.build.description", "0", "surnia_verizon-user 5.1 LPI23.29-17.5 5 release-keys");
-        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_verizon/surnia_cdma:5.1/LPI23.29-17.5/5:user/release-keys");
+        property_override("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_verizon/surnia_cdma:5.1/LPI23.29-17.5/5:user/release-keys");
         property_set("ro.mot.build.customerid", "verizon");
         property_set("ro.telephony.get_imsi_from_sim", "true");
         property_set("ro.com.google.clientidbase.am", "android-verizon");
@@ -86,7 +86,7 @@ void vendor_load_properties() {
         property_override("ro.product.device", "ro.product.vendor.device", "surnia_umts");
         property_override("ro.build.product", "0", "surnia_umts");
         property_override("ro.build.description", "0", "surnia_retus-user 5.0.2 LXI22.50-24.1 1 release-keys");
-        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retus/surnia_umts:5.0.2/LXI22.50-24.1/1:user/release-keys");        
+        property_override("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retus/surnia_umts:5.0.2/LXI22.50-24.1/1:user/release-keys");        
         property_set("ro.mot.build.customerid", "retus");
     } else if (radio == "0x3") {
         /* XT1526 */
@@ -94,19 +94,19 @@ void vendor_load_properties() {
         if (carrier == "sprint") {
             if (fsg == "boost") {
                 property_override("ro.build.description", "0", "surnia_boost-user 5.0.2 LXI22.50-14.8 30 release-keys");
-                property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_boost/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
+                property_override("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_boost/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
                 property_set("ro.cdma.home.operator.numeric", "311870");
                 property_set("ro.cdma.home.operator.alpha", "Boost Mobile");
             } else {
                 property_override("ro.build.description", "0", "surnia_sprint-user 5.0.2 LXI22.50-14.8 30 release-keys");
-                property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_sprint/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
+                property_override("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_sprint/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
             }
             property_set("ro.fsg-id", "sprint");
             property_set("ro.carrier", "sprint");
             property_set("ro.mot.build.customerid ", "sprint");
         } else {
             property_override("ro.build.description", "0", "surnia_usc-user 5.0.2 LXI22.50-14.8 30 release-keys");
-            property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_usc/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
+            property_override("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_usc/surnia_cdma:5.0.2/LXI22.50-14.8/30:user/release-keys");
             property_set("ro.mot.build.customerid", "usc");
             property_set("ro.cdma.home.operator.alpha", "U.S. Cellular");
             property_set("ro.cdma.home.operator.numeric", "311580");
@@ -128,7 +128,7 @@ void vendor_load_properties() {
         property_override("ro.product.device", "ro.product.vendor.device", "surnia_umts");
         property_override("ro.build.product", "0", "surnia_umts");
         property_override("ro.build.description", "0", "surnia_reteu-user 5.0.2 LXI22.50-24.1 2 release-keys");
-        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_reteu/surnia_umts:5.0.2/LXI22.50-24.1/2:user/release-keys");
+        property_override("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_reteu/surnia_umts:5.0.2/LXI22.50-24.1/2:user/release-keys");
         property_set("ro.mot.build.customerid", "reteuall");
     } else if (radio == "0x6") {
         /* XT1523 */
@@ -137,7 +137,7 @@ void vendor_load_properties() {
         property_override("ro.product.device", "ro.product.vendor.device", "surnia_udstv");
         property_override("ro.build.product", "0", "surnia_udstv");
         property_override("ro.build.description", "0", "surnia_retbr_dstv-user 5.0.2 LXI22.50-24.1 3 release-keys");
-        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retbr_dstv/surnia_udstv:5.0.2/LXI22.50-24.1/3:user/release-keys");
+        property_override("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retbr_dstv/surnia_udstv:5.0.2/LXI22.50-24.1/3:user/release-keys");
         property_set("ro.mot.build.customerid", "retbr");
     } else if (radio == "0x7") {
         /* XT1521 */
@@ -146,7 +146,7 @@ void vendor_load_properties() {
         property_override("ro.product.device", "ro.product.vendor.device", "surnia_uds");
         property_override("ro.build.product", "0", "surnia_uds");
         property_override("ro.build.description", "0", "surnia_retasia_ds-user 5.0.2 LXI22.50-53.1 1 release-keys");
-        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retasia_ds/surnia_uds:5.0.2/LXI22.50-53.1/1:user/release-keys");
+        property_override("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retasia_ds/surnia_uds:5.0.2/LXI22.50-53.1/1:user/release-keys");
         property_set("ro.mot.build.customerid", "retasiaall");
     } else if (radio == "0x8") {
         /* XT1514 */
@@ -155,7 +155,7 @@ void vendor_load_properties() {
         property_override("ro.product.device", "ro.product.vendor.device", "surnia_uds");
         property_override("ro.build.product", "0", "surnia_uds");
         property_override("ro.build.description", "0", "surnia_retbr_ds-user 5.0.2 LXI22.50-24.1 1 release-keys");
-        property_override("ro.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retbr_ds/surnia_uds:5.0.2/LXI22.50-24.1/1:user/release-keys");
+        property_override("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "motorola/surnia_retbr_ds/surnia_uds:5.0.2/LXI22.50-24.1/1:user/release-keys");
         property_set("ro.mot.build.customerid", "retbr");
     }
 
